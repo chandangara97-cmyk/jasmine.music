@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raag &amp; Reverb — Piano Lessons &amp; Music Gallery</title>
+<meta name="description" content="Learn piano from the ground up with structured, one-on-one lessons. Plus a growing gallery of trance, classical, retro and world music, with regular blogs and short videos.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#14181c;
+    --ink-soft:#1c2228;
+    --ivory:#f7f3e9;
+    --ivory-dim:#e9e2cf;
+    --brass:#c9a227;
+    --brass-bright:#e4c34f;
+    --teal:#1f3a3d;
+    --teal-bright:#2c5458;
+    --wine:#6b2737;
+    --slate:#8b95a1;
+    --slate-dark:#5b6770;
+
+    --font-display:'Fraunces', serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+
+    --max-w:1180px;
+    --edge: clamp(20px, 5vw, 64px);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  body{
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+  ul{ list-style:none; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  ::selection{ background:var(--brass); color:var(--ink); }
+
+  :focus-visible{
+    outline:2px solid var(--brass);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:var(--max-w);
+    margin:0 auto;
+    padding-left:var(--edge);
+    padding-right:var(--edge);
+  }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--brass);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:22px;
+    height:1px;
+    background:var(--brass);
+    display:inline-block;
+  }
+
+  h1,h2,h3,h4{
+    font-family:var(--font-display);
+    font-weight:600;
+    line-height:1.08;
+    letter-spacing:-0.01em;
+  }
+
+  /* ---------- NAV ---------- */
+  .site-nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(20,24,28,0.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(201,162,39,0.18);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:72px;
+    color:var(--ivory);
+  }
+  .logo{
+    font-family:var(--font-display);
+    font-size:1.28rem;
+    font-weight:700;
+    letter-spacing:0.01em;
+    color:var(--ivory);
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+  }
+  .logo span{
+    color:var(--brass);
+    font-family:var(--font-mono);
+    font-size:0.65rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    font-weight:400;
+  }
+  .nav-links{
+    display:flex;
+    gap:34px;
+    font-size:0.88rem;
+  }
+  .nav-links a{
+    color:var(--ivory-dim);
+    position:relative;
+    padding:6px 0;
+    transition:color 0.2s ease;
+  }
+  .nav-links a:hover{ color:var(--brass-bright); }
+  .nav-cta{
+    background:var(--brass);
+    color:var(--ink);
+    padding:10px 20px;
+    border-radius:2px;
+    font-size:0.85rem;
+    font-weight:600;
+    transition:background 0.2s ease, transform 0.2s ease;
+  }
+  .nav-cta:hover{ background:var(--brass-bright); transform:translateY(-1px); }
+
+  .nav-toggle{
+    display:none;
+    background:none;
+    border:none;
+    color:var(--ivory);
+    font-size:1.5rem;
+  }
+
+  @media (max-width: 860px){
+    .nav-links{ display:none; }
+    .nav-toggle{ display:block; }
+    .nav-cta.desktop-only{ display:none; }
+  }
+
+  .mobile-panel{
+    display:none;
+    flex-direction:column;
+    background:var(--ink-soft);
+    padding:20px var(--edge) 28px;
+    gap:18px;
+  }
+  .mobile-panel.open{ display:flex; }
+  .mobile-panel a{
+    color:var(--ivory-dim);
+    font-size:1rem;
+    padding:6px 0;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+  }
+  .mobile-panel .nav-cta{ text-align:center; margin-top:8px; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--ink);
+    color:var(--ivory);
+    padding-top:150px;
+    padding-bottom:0;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute;
+    top:-200px; right:-200px;
+    width:560px; height:560px;
+    background:radial-gradient(circle, rgba(201,162,39,0.16) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:48px;
+    align-items:center;
+    padding-bottom:70px;
+    position:relative;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 5.4vw, 4.4rem);
+    margin-top:22px;
+    max-width:14ch;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--brass-bright);
+  }
+  .hero p.lede{
+    font-size:1.08rem;
+    color:var(--slate);
+    max-width:46ch;
+    margin-top:22px;
+  }
+  .hero-ctas{
+    display:flex;
+    gap:16px;
+    margin-top:34px;
+    flex-wrap:wrap;
+  }
+  .btn-primary{
+    background:var(--brass);
+    color:var(--ink);
+    padding:15px 26px;
+    font-weight:600;
+    font-size:0.92rem;
+    border-radius:2px;
+    transition:background 0.2s ease, transform 0.2s ease;
+    display:inline-block;
+  }
+  .btn-primary:hover{ background:var(--brass-bright); transform:translateY(-2px); }
+  .btn-ghost{
+    border:1px solid rgba(247,243,233,0.28);
+    color:var(--ivory);
+    padding:15px 26px;
+    font-weight:500;
+    font-size:0.92rem;
+    border-radius:2px;
+    transition:border-color 0.2s ease, background 0.2s ease;
+    display:inline-block;
+  }
+  .btn-ghost:hover{ border-color:var(--brass); background:rgba(201,162,39,0.08); }
+
+  .hero-stats{
+    display:flex;
+    gap:36px;
+    margin-top:52px;
+    padding-top:28px;
+    border-top:1px solid rgba(247,243,233,0.12);
+  }
+  .hero-stats div strong{
+    display:block;
+    font-family:var(--font-display);
+    font-size:1.6rem;
+    color:var(--brass-bright);
+  }
+  .hero-stats div span{
+    font-family:var(--font-mono);
+    font-size:0.7rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--slate);
+  }
+
+  /* hero visual: abstract keys + waveform */
+  .hero-visual{
+    position:relative;
+    height:420px;
+  }
+  .hero-visual svg{ width:100%; height:100%; }
+
+  /* ---------- PIANO KEY DIVIDER ---------- */
+  .keybed{
+    display:flex;
+    height:118px;
+    position:relative;
+    z-index:2;
+  }
+  .key{
+    position:relative;
+    flex:1;
+    background:linear-gradient(180deg, #fffdf8 0%, #ede6d4 100%);
+    border-right:1px solid #cabf9f;
+    border-top:1px solid #fffdf8;
+  }
+  .key:last-child{ border-right:none; }
+  .key.black{
+    background:linear-gradient(180deg, #2a2f34 0%, #101316 100%);
+    height:64%;
+    width:56%;
+    margin-left:-28%;
+    margin-right:-28%;
+    z-index:3;
+    border:1px solid #000;
+    border-radius:0 0 3px 3px;
+  }
+  .key.lit{
+    background:linear-gradient(180deg, var(--brass-bright) 0%, var(--brass) 100%);
+    transition:background 1.4s ease;
+  }
+  .key.black.lit{
+    background:linear-gradient(180deg, var(--brass) 0%, #8a6c15 100%);
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:96px 0; }
+  .section-head{
+    max-width:640px;
+    margin-bottom:56px;
+  }
+  .section-head h2{
+    font-size:clamp(2rem, 3.6vw, 2.8rem);
+    margin-top:16px;
+  }
+  .section-head p{
+    margin-top:16px;
+    color:var(--slate-dark);
+    font-size:1.02rem;
+    max-width:52ch;
+  }
+
+  /* ---------- WHY / VALUE PROPS ---------- */
+  .why{ background:var(--ivory); }
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:2px;
+    background:var(--ink);
+    border:1px solid var(--ink);
+  }
+  .why-card{
+    background:var(--ivory);
+    padding:38px 32px;
+  }
+  .why-card .num{
+    font-family:var(--font-mono);
+    font-size:0.75rem;
+    color:var(--wine);
+    letter-spacing:0.08em;
+  }
+  .why-card h3{
+    font-size:1.32rem;
+    margin-top:14px;
+    margin-bottom:12px;
+  }
+  .why-card p{ color:var(--slate-dark); font-size:0.96rem; }
+
+  @media (max-width: 760px){
+    .why-grid{ grid-template-columns:1fr; }
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-visual{ height:280px; order:-1; }
+  }
+
+  /* ---------- LESSON TRACKS ---------- */
+  .tracks{ background:var(--teal); color:var(--ivory); }
+  .tracks .eyebrow{ color:var(--brass-bright); }
+  .tracks .eyebrow::before{ background:var(--brass-bright); }
+  .tracks .section-head p{ color:rgba(247,243,233,0.68); }
+
+  .track-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .track-card{
+    background:rgba(247,243,233,0.05);
+    border:1px solid rgba(247,243,233,0.14);
+    padding:28px 24px;
+    border-radius:3px;
+    transition:transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  }
+  .track-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--brass);
+    background:rgba(201,162,39,0.08);
+  }
+  .track-level{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+  }
+  .track-card h3{
+    font-size:1.22rem;
+    margin-top:12px;
+    margin-bottom:10px;
+    color:var(--ivory);
+  }
+  .track-card p{
+    font-size:0.9rem;
+    color:rgba(247,243,233,0.62);
+  }
+
+  @media (max-width: 980px){
+    .track-grid{ grid-template-columns:repeat(2, 1fr); }
+  }
+  @media (max-width: 560px){
+    .track-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- MUSIC GALLERY (record sleeves) ---------- */
+  .gallery{ background:var(--ivory); }
+  .gallery-note{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:10px;
+    font-family:var(--font-mono);
+    font-size:0.78rem;
+    color:var(--slate-dark);
+  }
+  .gallery-note .pin{
+    background:var(--wine);
+    color:var(--ivory);
+    padding:3px 10px;
+    border-radius:2px;
+    font-size:0.68rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+
+  .sleeve-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:26px;
+    margin-top:8px;
+  }
+  .sleeve{
+    position:relative;
+    aspect-ratio:1/1;
+    border-radius:2px;
+    overflow:hidden;
+    cursor:pointer;
+    isolation:isolate;
+  }
+  .sleeve::before{
+    content:'';
+    position:absolute; inset:0;
+    background:var(--sleeve-color, var(--teal));
+    transition:transform 0.4s ease;
+  }
+  .sleeve::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.75) 100%);
+  }
+  .sleeve:hover::before{ transform:scale(1.06); }
+  .sleeve-disc{
+    position:absolute;
+    top:14%; right:-18%;
+    width:70%;
+    aspect-ratio:1/1;
+    border-radius:50%;
+    background:repeating-radial-gradient(circle at center, rgba(0,0,0,0.35) 0 2px, transparent 2px 6px);
+    border:1px solid rgba(0,0,0,0.25);
+    opacity:0.5;
+    transition:transform 0.6s ease;
+  }
+  .sleeve:hover .sleeve-disc{ transform:rotate(35deg); }
+  .sleeve-content{
+    position:relative;
+    z-index:2;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:22px;
+  }
+  .sleeve-tag{
+    font-family:var(--font-mono);
+    font-size:0.66rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:rgba(247,243,233,0.8);
+  }
+  .sleeve h3{
+    color:var(--ivory);
+    font-size:1.3rem;
+    margin-top:8px;
+  }
+  .sleeve p{
+    color:rgba(247,243,233,0.7);
+    font-size:0.85rem;
+    margin-top:6px;
+  }
+
+  @media (max-width: 900px){
+    .sleeve-grid{ grid-template-columns:repeat(2, 1fr); }
+  }
+  @media (max-width: 560px){
+    .sleeve-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- TRACKLIST FEED (blog + shorts) ---------- */
+  .feed{ background:var(--ink); color:var(--ivory); }
+  .feed .eyebrow{ color:var(--brass-bright); }
+  .feed .eyebrow::before{ background:var(--brass-bright); }
+  .feed .section-head p{ color:rgba(247,243,233,0.62); }
+
+  .feed-list{ border-top:1px solid rgba(247,243,233,0.14); }
+  .feed-item{
+    display:grid;
+    grid-template-columns:52px 1fr auto auto;
+    align-items:center;
+    gap:22px;
+    padding:22px 4px;
+    border-bottom:1px solid rgba(247,243,233,0.14);
+    transition:background 0.2s ease;
+  }
+  .feed-item:hover{ background:rgba(201,162,39,0.06); }
+  .feed-index{
+    font-family:var(--font-mono);
+    color:var(--slate);
+    font-size:0.95rem;
+  }
+  .feed-main h4{
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:1.02rem;
+    color:var(--ivory);
+  }
+  .feed-main span{
+    display:block;
+    font-size:0.85rem;
+    color:rgba(247,243,233,0.55);
+    margin-top:4px;
+  }
+  .feed-type{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:5px 10px;
+    border-radius:2px;
+    white-space:nowrap;
+  }
+  .feed-type.blog{ background:rgba(31,58,61,0.5); color:#8fd3d8; border:1px solid rgba(143,211,216,0.3); }
+  .feed-type.short{ background:rgba(107,39,55,0.4); color:#e79aab; border:1px solid rgba(231,154,171,0.3); }
+  .feed-meta{
+    font-family:var(--font-mono);
+    font-size:0.8rem;
+    color:var(--slate);
+    white-space:nowrap;
+  }
+
+  @media (max-width: 640px){
+    .feed-item{ grid-template-columns:32px 1fr; row-gap:8px; }
+    .feed-type, .feed-meta{ grid-column:2; justify-self:start; }
+  }
+
+  .feed-foot{
+    margin-top:34px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    color:rgba(247,243,233,0.55);
+    font-size:0.9rem;
+  }
+  .feed-foot .dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--brass-bright);
+    animation:pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; transform:scale(1); }
+    50%{ opacity:0.4; transform:scale(0.7); }
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about{ background:var(--ivory); }
+  .about-grid{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:60px;
+    align-items:center;
+  }
+  .about-portrait{
+    aspect-ratio:4/5;
+    background:var(--teal);
+    border-radius:2px;
+    position:relative;
+    overflow:hidden;
+  }
+  .about-portrait::before{
+    content:'';
+    position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(90deg, rgba(247,243,233,0.05) 0 2px, transparent 2px 34px);
+  }
+  .about-portrait .caption{
+    position:absolute;
+    bottom:20px; left:20px;
+    font-family:var(--font-mono);
+    font-size:0.7rem;
+    color:rgba(247,243,233,0.8);
+    letter-spacing:0.06em;
+  }
+  .about-copy h2{ font-size:clamp(1.9rem, 3.2vw, 2.5rem); }
+  .about-copy p{
+    margin-top:18px;
+    color:var(--slate-dark);
+    max-width:56ch;
+  }
+  .about-facts{
+    display:flex;
+    gap:30px;
+    margin-top:30px;
+    flex-wrap:wrap;
+  }
+  .about-facts div{
+    font-family:var(--font-mono);
+    font-size:0.78rem;
+    color:var(--slate-dark);
+    border-left:2px solid var(--brass);
+    padding-left:12px;
+  }
+  .about-facts strong{
+    display:block;
+    font-family:var(--font-display);
+    font-size:1.1rem;
+    color:var(--ink);
+    font-weight:600;
+  }
+
+  @media (max-width: 820px){
+    .about-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- ENROLL / CONTACT ---------- */
+  .enroll{ background:var(--wine); color:var(--ivory); }
+  .enroll .eyebrow{ color:var(--ivory); opacity:0.85; }
+  .enroll .eyebrow::before{ background:var(--ivory); }
+  .enroll-grid{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:56px;
+  }
+  .enroll h2{ font-size:clamp(2rem, 3.4vw, 2.7rem); margin-top:16px; }
+  .enroll p.lede{ margin-top:18px; color:rgba(247,243,233,0.85); max-width:44ch; }
+
+  .enroll-contacts{ margin-top:34px; }
+  .enroll-contacts a{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-size:0.95rem;
+    padding:12px 0;
+    border-bottom:1px solid rgba(247,243,233,0.25);
+    width:100%;
+    transition:color 0.2s ease;
+  }
+  .enroll-contacts a:hover{ color:var(--brass-bright); }
+
+  form{
+    background:rgba(20,24,28,0.18);
+    border:1px solid rgba(247,243,233,0.3);
+    padding:32px;
+    border-radius:3px;
+    display:grid;
+    gap:18px;
+  }
+  .field{ display:grid; gap:8px; }
+  .field label{
+    font-family:var(--font-mono);
+    font-size:0.7rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:rgba(247,243,233,0.75);
+  }
+  .field input, .field select, .field textarea{
+    background:rgba(247,243,233,0.94);
+    border:none;
+    border-radius:2px;
+    padding:13px 14px;
+    font-family:var(--font-body);
+    font-size:0.95rem;
+    color:var(--ink);
+  }
+  .field textarea{ resize:vertical; min-height:90px; }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:560px){ .field-row{ grid-template-columns:1fr; } }
+
+  .submit-btn{
+    background:var(--brass);
+    color:var(--ink);
+    border:none;
+    padding:15px 22px;
+    font-weight:700;
+    font-size:0.92rem;
+    border-radius:2px;
+    transition:background 0.2s ease, transform 0.2s ease;
+  }
+  .submit-btn:hover{ background:var(--brass-bright); transform:translateY(-2px); }
+  .form-note{
+    font-family:var(--font-mono);
+    font-size:0.75rem;
+    color:rgba(247,243,233,0.6);
+  }
+  .form-success{
+    display:none;
+    background:rgba(201,162,39,0.16);
+    border:1px solid var(--brass);
+    padding:14px 16px;
+    border-radius:2px;
+    font-size:0.9rem;
+  }
+  .form-success.show{ display:block; }
+
+  @media (max-width: 820px){ .enroll-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink);
+    color:rgba(247,243,233,0.6);
+    padding:52px 0 34px;
+  }
+  .footer-top{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:32px;
+    padding-bottom:32px;
+    border-bottom:1px solid rgba(247,243,233,0.12);
+  }
+  .footer-logo{
+    font-family:var(--font-display);
+    font-size:1.3rem;
+    color:var(--ivory);
+  }
+  .footer-cols{
+    display:flex;
+    gap:56px;
+    flex-wrap:wrap;
+  }
+  .footer-col h5{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    margin-bottom:14px;
+  }
+  .footer-col a{
+    display:block;
+    font-size:0.88rem;
+    padding:5px 0;
+    color:rgba(247,243,233,0.62);
+    transition:color 0.2s ease;
+  }
+  .footer-col a:hover{ color:var(--ivory); }
+  .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:26px;
+    font-size:0.78rem;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  .feed-status{
+    padding:30px 4px;
+    font-family:var(--font-mono);
+    font-size:0.85rem;
+    color:rgba(247,243,233,0.5);
+  }
+  .feed-item.clickable{ cursor:pointer; }
+
+  /* ---------- POST MODAL ---------- */
+  .post-modal{
+    position:fixed;
+    inset:0;
+    z-index:200;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  .post-modal.open{ display:flex; }
+  .post-modal-backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(10,12,14,0.72);
+    backdrop-filter:blur(3px);
+  }
+  .post-modal-panel{
+    position:relative;
+    background:var(--ivory);
+    color:var(--ink);
+    max-width:640px;
+    width:100%;
+    max-height:82vh;
+    overflow-y:auto;
+    padding:44px 40px;
+    border-radius:3px;
+    z-index:2;
+  }
+  .post-modal-close{
+    position:absolute;
+    top:18px; right:18px;
+    background:none;
+    border:none;
+    font-size:1.1rem;
+    color:var(--slate-dark);
+    width:36px; height:36px;
+    border-radius:50%;
+    transition:background 0.2s ease;
+  }
+  .post-modal-close:hover{ background:var(--ivory-dim); }
+  .post-modal-tag{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--wine);
+  }
+  .post-modal-panel h3{
+    font-size:1.7rem;
+    margin-top:10px;
+    max-width:26ch;
+  }
+  .post-modal-meta{
+    font-family:var(--font-mono);
+    font-size:0.8rem;
+    color:var(--slate-dark);
+    margin-top:10px;
+  }
+  .post-modal-body{
+    margin-top:24px;
+    font-size:1rem;
+    color:#33393f;
+    white-space:pre-wrap;
+    line-height:1.75;
+  }
+  .post-modal-body iframe{
+    width:100%;
+    aspect-ratio:16/9;
+    border:none;
+    border-radius:2px;
+    margin-top:6px;
+  }
+
+  /* Scroll reveal */
+  .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="site-nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo">Raag <span>&amp;</span> Reverb</a>
+    <ul class="nav-links">
+      <li><a href="#lessons">Piano Lessons</a></li>
+      <li><a href="#gallery">Music Gallery</a></li>
+      <li><a href="#feed">Blog &amp; Shorts</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <a href="#enroll" class="nav-cta desktop-only">Book a Trial Lesson</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+  </div>
+  <div class="mobile-panel" id="mobilePanel">
+    <a href="#lessons">Piano Lessons</a>
+    <a href="#gallery">Music Gallery</a>
+    <a href="#feed">Blog &amp; Shorts</a>
+    <a href="#about">About</a>
+    <a href="#enroll" class="nav-cta">Book a Trial Lesson</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Piano Lessons · Since Day One, One Key At A Time</div>
+      <h1>Learn the piano <em>properly</em> — then explore everywhere sound can go.</h1>
+      <p class="lede">One-on-one and small-group piano lessons for absolute beginners through advanced players, built on real technique and real repertoire. Alongside it, a running gallery of trance, classical, retro Bollywood and more — for the days you just want to listen.</p>
+      <div class="hero-ctas">
+        <a href="#enroll" class="btn-primary">Book a Trial Lesson</a>
+        <a href="#gallery" class="btn-ghost">Browse the Music Gallery</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>4</strong><span>Lesson Tracks</span></div>
+        <div><strong>6+</strong><span>Genres in Gallery</span></div>
+        <div><strong>Weekly</strong><span>Blogs &amp; Shorts</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="wave" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#c9a227"/>
+            <stop offset="100%" stop-color="#6b2737"/>
+          </linearGradient>
+        </defs>
+        <circle cx="200" cy="180" r="150" fill="none" stroke="rgba(247,243,233,0.08)" stroke-width="1"/>
+        <circle cx="200" cy="180" r="110" fill="none" stroke="rgba(247,243,233,0.08)" stroke-width="1"/>
+        <g id="bars"></g>
+        <text x="200" y="380" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="rgba(247,243,233,0.45)" letter-spacing="2">C · D · E · F · G · A · B</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="keybed" id="keybed" aria-hidden="true">
+    <!-- 24 white keys generated by JS, with black keys layered -->
+  </div>
+</header>
+
+<!-- ============ WHY PIANO HERE ============ -->
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Why Here</div>
+      <h2>Technique first. Then whatever music you love.</h2>
+      <p>Most players quit not because piano is hard, but because they were never taught how to practise it. Lessons here are built around three things: correct technique, honest listening, and repertoire you'll actually want to play.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="num">01 — FOUNDATION</div>
+        <h3>Technique that transfers</h3>
+        <p>Posture, hand shape, sight-reading and ear training taught in an order that actually compounds — not random songs strung together.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="num">02 — REPERTOIRE</div>
+        <h3>Music you chose, not just the syllabus</h3>
+        <p>Once the fundamentals are solid, lessons pull from film scores, classical grades, and whatever genre pulled you toward piano in the first place.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="num">03 — FEEDBACK LOOP</div>
+        <h3>Short videos between lessons</h3>
+        <p>Regular short-form videos on technique, practice hacks and common mistakes — so the learning doesn't stop when the lesson ends.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LESSON TRACKS ============ -->
+<section class="tracks" id="lessons">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Piano Lessons</div>
+      <h2>Pick a track. Move at your pace.</h2>
+      <p>Every track starts with a trial lesson so we can place you correctly — no guessing, no wasted months on the wrong material.</p>
+    </div>
+    <div class="track-grid">
+      <div class="track-card reveal">
+        <div class="track-level">Track 01</div>
+        <h3>Absolute Beginners</h3>
+        <p>Reading notation, hand independence, first pieces. For learners who've never touched a keyboard.</p>
+      </div>
+      <div class="track-card reveal">
+        <div class="track-level">Track 02</div>
+        <h3>Classical Grades</h3>
+        <p>Structured progression through graded classical repertoire and theory, for exam-track or discipline-focused learners.</p>
+      </div>
+      <div class="track-card reveal">
+        <div class="track-level">Track 03</div>
+        <h3>Film &amp; Contemporary</h3>
+        <p>Bollywood, film scores and popular songs — chords, arrangement and playing by ear alongside notation.</p>
+      </div>
+      <div class="track-card reveal">
+        <div class="track-level">Track 04</div>
+        <h3>Improvisation &amp; Theory</h3>
+        <p>For players who already read music and want to understand harmony well enough to improvise confidently.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MUSIC GALLERY ============ -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Music Gallery</div>
+      <h2>Beyond the piano bench</h2>
+      <p class="gallery-note"><span class="pin">Regularly Updated</span> A running crate of everything else worth hearing — trance sets, old classics, and whatever else is in rotation this week.</p>
+    </div>
+    <div class="sleeve-grid">
+      <a class="sleeve reveal" style="--sleeve-color:#1f3a3d" href="#feed">
+        <div class="sleeve-disc"></div>
+        <div class="sleeve-content">
+          <div class="sleeve-tag">Genre</div>
+          <h3>Trance &amp; Electronic</h3>
+          <p>Progressive builds and long-form sets for focus and late nights.</p>
+        </div>
+      </a>
+      <a class="sleeve reveal" style="--sleeve-color:#6b2737" href="#feed">
+        <div class="sleeve-disc"></div>
+        <div class="sleeve-content">
+          <div class="sleeve-tag">Genre</div>
+          <h3>Old &amp; Retro</h3>
+          <p>Golden-era Bollywood, ghazals and songs that still hold up decades later.</p>
+        </div>
+      </a>
+      <a class="sleeve reveal" style="--sleeve-color:#3a3220" href="#feed">
+        <div class="sleeve-disc"></div>
+        <div class="sleeve-content">
+          <div class="sleeve-tag">Genre</div>
+          <h3>Classical &amp; Baroque</h3>
+          <p>The pieces every piano student eventually meets — and why they endure.</p>
+        </div>
+      </a>
+      <a class="sleeve reveal" style="--sleeve-color:#2c2c33" href="#feed">
+        <div class="sleeve-disc"></div>
+        <div class="sleeve-content">
+          <div class="sleeve-tag">Genre</div>
+          <h3>Jazz &amp; Blues</h3>
+          <p>Chord voicings, swing feel and improvisation — a favourite side-quest for intermediate players.</p>
+        </div>
+      </a>
+      <a class="sleeve reveal" style="--sleeve-color:#40352a" href="#feed">
+        <div class="sleeve-disc"></div>
+        <div class="sleeve-content">
+          <div class="sleeve-tag">Genre</div>
+          <h3>Ambient &amp; Lo-fi</h3>
+          <p>Slow, textured, low-pressure listening — good practice-room background too.</p>
+        </div>
+      </a>
+      <a class="sleeve reveal" style="--sleeve-color:#243a2e" href="#feed">
+        <div class="sleeve-disc"></div>
+        <div class="sleeve-content">
+          <div class="sleeve-tag">Genre</div>
+          <h3>World &amp; Folk</h3>
+          <p>Regional instruments and traditions from Himachal and beyond.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEED: BLOG + SHORTS ============ -->
+<section class="feed" id="feed">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Latest</div>
+      <h2>Blogs &amp; short videos, in order</h2>
+      <p>New posts and short-form videos go up regularly — practice tips, piece breakdowns, and picks from the gallery above.</p>
+    </div>
+
+    <div class="feed-list" id="feedList">
+      <div class="feed-status">Loading latest posts and videos…</div>
+    </div>
+
+    <div class="feed-foot">
+      <span class="dot"></span> New entries added regularly — check back or follow along.
+    </div>
+  </div>
+</section>
+
+<!-- Blog post reader modal -->
+<div class="post-modal" id="postModal" aria-hidden="true">
+  <div class="post-modal-backdrop" id="postModalBackdrop"></div>
+  <div class="post-modal-panel" role="dialog" aria-modal="true" aria-labelledby="postModalTitle">
+    <button class="post-modal-close" id="postModalClose" aria-label="Close">✕</button>
+    <div class="post-modal-tag" id="postModalTag"></div>
+    <h3 id="postModalTitle"></h3>
+    <div class="post-modal-meta" id="postModalMeta"></div>
+    <div class="post-modal-body" id="postModalBody"></div>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-portrait reveal">
+      <div class="caption">TEACHER · RAAG &amp; REVERB</div>
+    </div>
+    <div class="about-copy reveal">
+      <div class="eyebrow">About</div>
+      <h2>Taught by someone who still practises daily</h2>
+      <p>Lessons here come from years of hands-on playing and teaching, across classical grading, film music and everything in between. The gallery exists because good teaching means listening widely — not just to piano, but to how rhythm, harmony and production work across trance, retro film music, jazz and folk.</p>
+      <p>Replace this section with your own bio, certifications, teaching philosophy and a real photo — it's the part students read right before they decide to book a trial.</p>
+      <div class="about-facts">
+        <div><strong>1:1 &amp; Small Group</strong>Lesson formats</div>
+        <div><strong>Online &amp; In-person</strong>Where you learn</div>
+        <div><strong>All Ages</strong>Kids to adults</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENROLL / CONTACT ============ -->
+<section class="enroll" id="enroll">
+  <div class="wrap enroll-grid">
+    <div>
+      <div class="eyebrow">Get Started</div>
+      <h2>Book your trial lesson</h2>
+      <p class="lede">Tell us a little about where you are with piano — complete beginner is completely fine — and we'll get back to you to schedule a trial.</p>
+      <div class="enroll-contacts">
+        <a href="https://wa.me/910000000000" target="_blank" rel="noopener">WhatsApp — chat directly →</a>
+        <a href="mailto:hello@raagandreverb.example">hello@raagandreverb.example →</a>
+        <a href="tel:+910000000000">+91 00000 00000 →</a>
+      </div>
+    </div>
+
+    <form id="enrollForm">
+      <div class="field-row">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" required>
+        </div>
+        <div class="field">
+          <label for="phone">Phone / WhatsApp</label>
+          <input id="phone" name="phone" type="tel" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="level">Current level</label>
+        <select id="level" name="level">
+          <option>Absolute beginner</option>
+          <option>Some self-taught experience</option>
+          <option>Learned before, restarting</option>
+          <option>Intermediate / exam track</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="message">What are you hoping to learn?</label>
+        <textarea id="message" name="message" placeholder="E.g. film songs, classical grading, or just getting started..."></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Request a Trial Lesson</button>
+      <p class="form-note">We reply within 24 hours. No payment needed to book a trial.</p>
+      <div class="form-success" id="formSuccess">Thanks — your request is in. We'll reach out shortly to schedule your trial lesson.</div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-logo">Raag &amp; Reverb</div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Learn</h5>
+          <a href="#lessons">Piano Lessons</a>
+          <a href="#about">About the Teacher</a>
+          <a href="#enroll">Book a Trial</a>
+        </div>
+        <div class="footer-col">
+          <h5>Listen</h5>
+          <a href="#gallery">Music Gallery</a>
+          <a href="#feed">Blog</a>
+          <a href="#feed">Short Videos</a>
+        </div>
+        <div class="footer-col">
+          <h5>Contact</h5>
+          <a href="https://wa.me/910000000000">WhatsApp</a>
+          <a href="mailto:hello@raagandreverb.example">Email</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Raag &amp; Reverb. All rights reserved.</span>
+      <span>Built for learning piano, one key at a time.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---- Year ----
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- Mobile nav toggle ----
+  const navToggle = document.getElementById('navToggle');
+  const mobilePanel = document.getElementById('mobilePanel');
+  navToggle.addEventListener('click', () => {
+    const isOpen = mobilePanel.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+    navToggle.textContent = isOpen ? '✕' : '☰';
+  });
+  mobilePanel.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobilePanel.classList.remove('open');
+      navToggle.textContent = '☰';
+      navToggle.setAttribute('aria-expanded', false);
+    });
+  });
+
+  // ---- Build the piano keybed ----
+  const keybed = document.getElementById('keybed');
+  const totalWhiteKeys = 24;
+  const blackAfter = [true, true, false, true, true, true, false]; // per-octave pattern (C,D,E,F,G,A,B)
+
+  for (let i = 0; i < totalWhiteKeys; i++){
+    const key = document.createElement('div');
+    key.className = 'key white';
+    key.dataset.index = i;
+    keybed.appendChild(key);
+
+    const posInOctave = i % 7;
+    if (blackAfter[posInOctave] && i !== totalWhiteKeys - 1){
+      const black = document.createElement('div');
+      black.className = 'key black';
+      black.dataset.index = i + '-b';
+      keybed.appendChild(black);
+    }
+  }
+
+  // ---- On-load "played" animation across a handful of keys ----
+  function playIntro(){
+    const keys = keybed.querySelectorAll('.key');
+    const sequence = [2, 4, 7, 9, 12, 14, 17];
+    sequence.forEach((idx, order) => {
+      const el = keys[idx];
+      if (!el) return;
+      setTimeout(() => {
+        el.classList.add('lit');
+        setTimeout(() => el.classList.remove('lit'), 900);
+      }, order * 160);
+    });
+  }
+  window.addEventListener('load', () => setTimeout(playIntro, 400));
+
+  // ---- Hero waveform bars (SVG) ----
+  const barsGroup = document.getElementById('bars');
+  const barCount = 28;
+  for (let i = 0; i < barCount; i++){
+    const angle = (i / barCount) * Math.PI * 2;
+    const r1 = 60, r2 = 60 + 20 + Math.sin(i * 0.9) * 18;
+    const x1 = 200 + Math.cos(angle) * r1;
+    const y1 = 180 + Math.sin(angle) * r1;
+    const x2 = 200 + Math.cos(angle) * r2;
+    const y2 = 180 + Math.sin(angle) * r2;
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+    line.setAttribute('stroke', 'url(#wave)');
+    line.setAttribute('stroke-width', '3');
+    line.setAttribute('stroke-linecap', 'round');
+    line.setAttribute('opacity', 0.85);
+    barsGroup.appendChild(line);
+  }
+
+  // ---- Scroll reveal ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // ---- Enroll form (still front-end only placeholder — wire to Firebase /enquiries if you want submissions saved) ----
+  const form = document.getElementById('enrollForm');
+  const success = document.getElementById('formSuccess');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    success.classList.add('show');
+    form.reset();
+  });
+</script>
+
+<!-- ============ LIVE FEED: FIREBASE BLOG + YOUTUBE PLAYLIST ============ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+  // --- Config: same project as admin.html ---
+  const firebaseConfig = {
+    apiKey: "AIzaSyBfys5lWu_A5TTThUHiwzwetkigO8BgP6E",
+    authDomain: "music-c11f3.firebaseapp.com",
+    databaseURL: "https://music-c11f3-default-rtdb.firebaseio.com",
+    projectId: "music-c11f3",
+    storageBucket: "music-c11f3.firebasestorage.app",
+    messagingSenderId: "877457650352",
+    appId: "1:877457650352:web:51b5d69ab8a36a0f588175"
+  };
+
+  const YT_API_KEY = "AIzaSyBRz2ls_Mk6t6cdQ9zdBFnEZT0YDySbEAs";
+  const PLAYLIST_ID = "PLV6jxxivG93w";
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const feedList = document.getElementById('feedList');
+
+  let blogItems = [];
+  let videoItems = [];
+
+  function estimateReadTime(text){
+    const words = (text || '').trim().split(/\s+/).filter(Boolean).length;
+    const mins = Math.max(1, Math.round(words / 200));
+    return mins + ' min read';
+  }
+
+  function renderFeed(){
+    const combined = [...blogItems, ...videoItems].sort((a, b) => b.timestamp - a.timestamp);
+
+    if (combined.length === 0){
+      feedList.innerHTML = '<div class="feed-status">No posts yet — check back soon.</div>';
+      return;
+    }
+
+    feedList.innerHTML = '';
+    combined.forEach((item, i) => {
+      const row = document.createElement('div');
+      row.className = 'feed-item reveal in clickable';
+      row.innerHTML = `
+        <div class="feed-index">${String(i + 1).padStart(2, '0')}</div>
+        <div class="feed-main">
+          <h4>${item.title}</h4>
+          <span>${item.excerpt || ''}</span>
+        </div>
+        <div class="feed-type ${item.type === 'video' ? 'short' : 'blog'}">${item.type === 'video' ? 'Short Video' : 'Blog'}</div>
+        <div class="feed-meta">${item.meta}</div>
+      `;
+      row.addEventListener('click', () => openPost(item));
+      feedList.appendChild(row);
+    });
+  }
+
+  // --- Blog posts from Firebase Realtime Database ---
+  const blogRef = ref(db, 'blogPosts');
+  onValue(blogRef, (snapshot) => {
+    const data = snapshot.val() || {};
+    blogItems = Object.entries(data).map(([id, post]) => ({
+      id,
+      type: 'blog',
+      title: post.title || 'Untitled post',
+      excerpt: post.excerpt || '',
+      body: post.body || '',
+      timestamp: post.timestamp || 0,
+      meta: estimateReadTime(post.body),
+      dateLabel: post.dateLabel || ''
+    }));
+    renderFeed();
+  });
+
+  // --- Videos live from YouTube playlist ---
+  fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=25&playlistId=${PLAYLIST_ID}&key=${YT_API_KEY}`)
+    .then(res => res.json())
+    .then(data => {
+      if (!data.items) return;
+      videoItems = data.items
+        .filter(v => v.snippet && v.snippet.resourceId && v.snippet.resourceId.videoId)
+        .map(v => {
+          const s = v.snippet;
+          const date = new Date(s.publishedAt);
+          return {
+            type: 'video',
+            title: s.title,
+            excerpt: (s.description || '').split('\n')[0].slice(0, 110),
+            videoId: s.resourceId.videoId,
+            timestamp: date.getTime(),
+            meta: date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })
+          };
+        });
+      renderFeed();
+    })
+    .catch(() => {
+      // Fails quietly if the API key/playlist isn't reachable — blog posts still render.
+    });
+
+  // --- Modal for reading a blog post or watching a video ---
+  const modal = document.getElementById('postModal');
+  const modalBackdrop = document.getElementById('postModalBackdrop');
+  const modalClose = document.getElementById('postModalClose');
+  const modalTag = document.getElementById('postModalTag');
+  const modalTitle = document.getElementById('postModalTitle');
+  const modalMeta = document.getElementById('postModalMeta');
+  const modalBody = document.getElementById('postModalBody');
+
+  function openPost(item){
+    modalTag.textContent = item.type === 'video' ? 'Short Video' : 'Blog';
+    modalTitle.textContent = item.title;
+    modalMeta.textContent = item.meta;
+    if (item.type === 'video'){
+      modalBody.innerHTML = `<iframe src="https://www.youtube.com/embed/${item.videoId}" title="${item.title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    } else {
+      modalBody.textContent = item.body;
+    }
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+  function closePost(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    modalBody.innerHTML = '';
+  }
+  modalBackdrop.addEventListener('click', closePost);
+  modalClose.addEventListener('click', closePost);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePost(); });
+</script>
+
+</body>
+</html>

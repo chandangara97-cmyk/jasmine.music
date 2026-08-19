@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raag &amp; Reverb — Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14181c; --ivory:#f7f3e9; --ivory-dim:#e9e2cf;
+    --brass:#c9a227; --brass-bright:#e4c34f; --teal:#1f3a3d;
+    --wine:#6b2737; --slate:#8b95a1; --slate-dark:#5b6770;
+    --font-display:'Fraunces', serif; --font-body:'Inter', sans-serif; --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    background:var(--ink); color:var(--ivory); font-family:var(--font-body);
+    min-height:100vh; line-height:1.6;
+  }
+  .wrap{ max-width:760px; margin:0 auto; padding:60px 24px 100px; }
+  h1{ font-family:var(--font-display); font-size:1.8rem; font-weight:700; }
+  .eyebrow{
+    font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--brass-bright); margin-bottom:10px;
+  }
+  .subtitle{ color:var(--slate); font-size:0.92rem; margin-top:10px; max-width:52ch; }
+
+  /* Login gate */
+  #loginPanel{
+    max-width:380px; margin:80px auto 0; text-align:center;
+  }
+  #loginPanel h1{ margin-bottom:8px; }
+  .field{ display:grid; gap:8px; margin-top:18px; text-align:left; }
+  .field label{
+    font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.08em;
+    text-transform:uppercase; color:rgba(247,243,233,0.7);
+  }
+  input, textarea{
+    background:rgba(247,243,233,0.94); border:none; border-radius:2px;
+    padding:13px 14px; font-family:var(--font-body); font-size:0.95rem; color:var(--ink); width:100%;
+  }
+  textarea{ resize:vertical; min-height:220px; line-height:1.7; }
+  button{
+    font-family:inherit; cursor:pointer; border:none; border-radius:2px;
+    background:var(--brass); color:var(--ink); font-weight:700; padding:14px 22px;
+    font-size:0.92rem; transition:background 0.2s ease, transform 0.2s ease; margin-top:8px;
+  }
+  button:hover{ background:var(--brass-bright); transform:translateY(-1px); }
+  button.secondary{
+    background:transparent; color:var(--ivory); border:1px solid rgba(247,243,233,0.3); font-weight:500;
+  }
+  button.secondary:hover{ background:rgba(247,243,233,0.08); }
+  .error-msg{
+    display:none; background:rgba(107,39,55,0.25); border:1px solid var(--wine);
+    padding:10px 14px; border-radius:2px; font-size:0.85rem; margin-top:16px;
+  }
+  .error-msg.show{ display:block; }
+
+  /* App shell (post-login) */
+  #appPanel{ display:none; }
+  #appPanel.show{ display:block; }
+  .topbar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-bottom:24px; margin-bottom:36px; border-bottom:1px solid rgba(247,243,233,0.12);
+  }
+  .topbar .who{ font-family:var(--font-mono); font-size:0.8rem; color:var(--slate); }
+
+  .card{
+    background:rgba(247,243,233,0.04); border:1px solid rgba(247,243,233,0.12);
+    border-radius:3px; padding:28px 26px; margin-bottom:26px;
+  }
+  .card h2{ font-family:var(--font-display); font-size:1.25rem; margin-bottom:6px; }
+  .card .hint{ font-size:0.86rem; color:var(--slate); margin-bottom:18px; }
+
+  .status-msg{
+    display:none; font-family:var(--font-mono); font-size:0.8rem;
+    padding:10px 14px; border-radius:2px; margin-top:14px;
+  }
+  .status-msg.show{ display:block; }
+  .status-msg.ok{ background:rgba(201,162,39,0.16); border:1px solid var(--brass); }
+  .status-msg.err{ background:rgba(107,39,55,0.25); border:1px solid var(--wine); }
+
+  .post-row{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
+    padding:16px 0; border-bottom:1px solid rgba(247,243,233,0.1);
+  }
+  .post-row:last-child{ border-bottom:none; }
+  .post-row h4{ font-size:0.98rem; font-weight:600; }
+  .post-row span{ display:block; font-family:var(--font-mono); font-size:0.75rem; color:var(--slate); margin-top:4px; }
+  .post-row button{
+    background:transparent; border:1px solid rgba(231,154,171,0.4); color:#e79aab;
+    font-size:0.78rem; padding:8px 14px; margin-top:0; white-space:nowrap;
+  }
+  .post-row button:hover{ background:rgba(107,39,55,0.2); }
+
+  .video-note{
+    font-size:0.88rem; color:var(--slate); line-height:1.7;
+  }
+  .video-note code{
+    font-family:var(--font-mono); background:rgba(247,243,233,0.08); padding:2px 6px; border-radius:2px; font-size:0.82rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ===== LOGIN GATE ===== -->
+  <div id="loginPanel">
+    <div class="eyebrow">Raag &amp; Reverb — Admin</div>
+    <h1>Sign in</h1>
+    <p class="subtitle">This panel is for adding blog posts. Videos update automatically from your YouTube playlist — no login needed for those.</p>
+    <div class="field">
+      <label for="loginEmail">Email</label>
+      <input id="loginEmail" type="email" autocomplete="username">
+    </div>
+    <div class="field">
+      <label for="loginPassword">Password</label>
+      <input id="loginPassword" type="password" autocomplete="current-password">
+    </div>
+    <button id="loginBtn" style="width:100%">Sign in</button>
+    <div class="error-msg" id="loginError">Sign-in failed. Check your email and password.</div>
+  </div>
+
+  <!-- ===== ADMIN APP (shown after login) ===== -->
+  <div id="appPanel">
+    <div class="topbar">
+      <div>
+        <div class="eyebrow">Raag &amp; Reverb — Admin</div>
+        <h1>Content panel</h1>
+      </div>
+      <div style="text-align:right">
+        <div class="who" id="whoami"></div>
+        <button class="secondary" id="logoutBtn" style="margin-top:10px">Sign out</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>New blog post</h2>
+      <p class="hint">This appears on the site's feed immediately, sorted with your videos by date.</p>
+      <div class="field">
+        <label for="postTitle">Title</label>
+        <input id="postTitle" type="text" placeholder="E.g. Why your hand keeps cramping on scales">
+      </div>
+      <div class="field">
+        <label for="postExcerpt">Short excerpt (shown in the feed list)</label>
+        <input id="postExcerpt" type="text" placeholder="One line summary, under 110 characters">
+      </div>
+      <div class="field">
+        <label for="postBody">Full post</label>
+        <textarea id="postBody" placeholder="Write the full post here..."></textarea>
+      </div>
+      <button id="publishBtn">Publish post</button>
+      <div class="status-msg" id="publishStatus"></div>
+    </div>
+
+    <div class="card">
+      <h2>Published posts</h2>
+      <p class="hint">Delete removes it from the site immediately.</p>
+      <div id="postsList"><p class="hint">Loading…</p></div>
+    </div>
+
+    <div class="card">
+      <h2>Adding a new video</h2>
+      <p class="video-note">
+        Videos aren't added here — they pull automatically from your YouTube playlist.
+        To publish one: upload it to YouTube as <strong>Unlisted</strong>, add it to the
+        <code>Raag &amp; Reverb</code> playlist, and it appears on the site within a few minutes.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getDatabase, ref, push, remove, onValue
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  import {
+    getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBfys5lWu_A5TTThUHiwzwetkigO8BgP6E",
+    authDomain: "music-c11f3.firebaseapp.com",
+    databaseURL: "https://music-c11f3-default-rtdb.firebaseio.com",
+    projectId: "music-c11f3",
+    storageBucket: "music-c11f3.firebasestorage.app",
+    messagingSenderId: "877457650352",
+    appId: "1:877457650352:web:51b5d69ab8a36a0f588175"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const auth = getAuth(app);
+
+  const loginPanel = document.getElementById('loginPanel');
+  const appPanel = document.getElementById('appPanel');
+  const loginError = document.getElementById('loginError');
+
+  // ---- Login ----
+  document.getElementById('loginBtn').addEventListener('click', () => {
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    loginError.classList.remove('show');
+    signInWithEmailAndPassword(auth, email, password)
+      .catch(() => loginError.classList.add('show'));
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+
+  onAuthStateChanged(auth, (user) => {
+    if (user){
+      loginPanel.style.display = 'none';
+      appPanel.classList.add('show');
+      document.getElementById('whoami').textContent = user.email;
+    } else {
+      loginPanel.style.display = 'block';
+      appPanel.classList.remove('show');
+    }
+  });
+
+  // ---- Publish new post ----
+  const publishBtn = document.getElementById('publishBtn');
+  const publishStatus = document.getElementById('publishStatus');
+
+  publishBtn.addEventListener('click', () => {
+    const title = document.getElementById('postTitle').value.trim();
+    const excerpt = document.getElementById('postExcerpt').value.trim();
+    const body = document.getElementById('postBody').value.trim();
+
+    if (!title || !body){
+      publishStatus.textContent = 'Title and full post text are required.';
+      publishStatus.className = 'status-msg err show';
+      return;
+    }
+
+    const postsRef = ref(db, 'blogPosts');
+    push(postsRef, {
+      title, excerpt, body,
+      timestamp: Date.now(),
+      dateLabel: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+    }).then(() => {
+      publishStatus.textContent = 'Published. It will appear on the site feed now.';
+      publishStatus.className = 'status-msg ok show';
+      document.getElementById('postTitle').value = '';
+      document.getElementById('postExcerpt').value = '';
+      document.getElementById('postBody').value = '';
+    }).catch((err) => {
+      publishStatus.textContent = 'Could not publish: ' + err.message;
+      publishStatus.className = 'status-msg err show';
+    });
+  });
+
+  // ---- List + delete existing posts ----
+  const postsList = document.getElementById('postsList');
+  onValue(ref(db, 'blogPosts'), (snapshot) => {
+    const data = snapshot.val() || {};
+    const entries = Object.entries(data).sort((a, b) => (b[1].timestamp || 0) - (a[1].timestamp || 0));
+
+    if (entries.length === 0){
+      postsList.innerHTML = '<p class="hint">No posts published yet.</p>';
+      return;
+    }
+
+    postsList.innerHTML = '';
+    entries.forEach(([id, post]) => {
+      const row = document.createElement('div');
+      row.className = 'post-row';
+      row.innerHTML = `
+        <div>
+          <h4>${post.title || 'Untitled'}</h4>
+          <span>${post.dateLabel || ''}</span>
+        </div>
+        <button data-id="${id}">Delete</button>
+      `;
+      row.querySelector('button').addEventListener('click', () => {
+        if (confirm('Delete "' + (post.title || 'this post') + '"? This can\'t be undone.')){
+          remove(ref(db, 'blogPosts/' + id));
+        }
+      });
+      postsList.appendChild(row);
+    });
+  });
+</script>
+
+</body>
+</html>
